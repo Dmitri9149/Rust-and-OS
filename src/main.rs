@@ -5,6 +5,10 @@
 
 // has to implement our own entry point (not to use crt0 of C)
 
+//GET LINKER ERROR AT THE STAGE, IT IS BECAUSE DEFAULT CONFIGURATION 
+// FOR LINKER RELY ON THE C LIBRARY
+// error: linking with `cc` failed: exit status: 1
+
 use core::panic::PanicInfo;
 // the function which is called on panic
 #[panic_handler]
