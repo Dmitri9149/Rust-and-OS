@@ -1,4 +1,5 @@
 #![no_std] // no std library
+#![no_main] // will not use normal entry point
 // 'panic abort' are added to Cargo to eliminate the eh_personality 
 // errors, it stops unwinding of stack after abort 
 
@@ -10,4 +11,4 @@ use core::panic::PanicInfo;
 fn panic(_info:&PanicInfo) -> ! {
     loop {}
 }
-fn main() {} // eliminate println! , not working without std::
+
