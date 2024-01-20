@@ -12,3 +12,9 @@ fn panic(_info:&PanicInfo) -> ! {
     loop {}
 }
 
+#[no_mangle] // compile should output function with really name 'start'
+            // use C calling convention 'extern "C"' 
+pub extern "C" fn _start () -> ! {
+    loop {}
+}
+
