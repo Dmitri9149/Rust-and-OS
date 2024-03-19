@@ -5,11 +5,16 @@
 
 // has to implement our own entry point (not to use crt0 of C)
 
+#![allow(unused_imports)]
 use core::panic::PanicInfo;
 
 // the function which is called on panic
 #[panic_handler]
-fn panic(_info:&PanicInfo) -> ! {
+#[cfg(not(test))] // has to add this for not to have the error messages from 
+// rust analyser 
+// see the https://github.com/rust-lang/rust-analyzer/issues/4490
+// solution from 'andyduplain' 
+fn panic(_info:&PanicInfo) -> !{
     loop {}
 }
 
