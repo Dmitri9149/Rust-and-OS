@@ -8,6 +8,8 @@
 #![allow(unused_imports)]
 use core::panic::PanicInfo;
 
+static HELLO: &[u8] = b"Hello World"; // the VGA buffer is located at address 0xb8000
+
 // the function which is called on panic
 #[panic_handler]
 #[cfg(not(test))] // has to add this for not to have the error messages from 
@@ -23,6 +25,17 @@ fn panic(_info:&PanicInfo) -> !{
 pub extern "C" fn _start () -> ! {
     // this function is the entry point, since the linker looks for a function
     // named `_start` by default
+    
+    let vga_buffer = 0xb800 as *mut u8;
+
+    for (i, &byte) in HELLO.iter().enumerate() {
+        unsafe {
+            *vga_buffer.offset(i as isize * 2) = byte;
+            *vga_buffer.offset(i as isize * 2 + 1) =0xb; 
+        }
+    }
+
+
     loop {}
 }
 
