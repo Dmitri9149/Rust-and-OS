@@ -11,5 +11,7 @@ panic = "abort" # disable stack unwinding on panic
 [profile.release]
 panic = "abort" # disable stack unwinding on panic
 
+# To turn our compiled kernel into a bootable disk 
+# image, it is need to link it with a bootloader
 [dependencies]
 bootloader = "0.9"
