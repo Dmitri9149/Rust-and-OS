@@ -7,6 +7,8 @@
 
 use core::panic::PanicInfo;
 
+mod vga_buffer;
+
 static HELLO: &[u8] = b"Hello World"; // the VGA buffer is located at address 0xb8000
 
 // compile should output function with name 'start', do not mangle 
