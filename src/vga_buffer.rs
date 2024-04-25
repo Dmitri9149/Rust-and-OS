@@ -75,18 +75,17 @@ impl Writer {
         if self.column_position >= BUFFER_WIDTH {
           self.new_line();
         }
+        let row = BUFFER_HEIGHT -1;
+        let col = self.column_position;
+
+        let color_code = self.color_code;
+        self.buffer.chars[row][col] = ScreenChar {
+          ascii_character: byte,
+          color_code,
+        };
+        self.column_position+=1;
       }
     }
-
-    let row = BUFFER_HEIGHT -1;
-    let col = self.column_position;
-
-    let color_code = self.color_code;
-    self.buffer.chars[row][col] = ScreenChar {
-      ascii_character: byte,
-      color_code,
-    };
-    self.column_position+=1;
   }
   fn new_line(&mut self) {
     /*TODO */
