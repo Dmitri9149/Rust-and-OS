@@ -1,10 +1,19 @@
 use volatile::Volatile;
 use core::fmt; 
+use spin::Mutex;
 // To print a character to the screen in VGA text mode, 
 // one has to write it to the text buffer of the VGA hardware. 
 // The VGA text buffer is a two-dimensional array with typically 25 rows 
 // and 80 columns, which is directly rendered to the screen. 
 // Each array entry describes a single screen character.
+
+lazy_static! {
+  pub static ref WRITER: Mutex<Writer> = Mutex::new (Writer {
+    column_position:0,
+    color_code: ColorCode::new(Color:Yellow, Color:Black),
+    buffer: unsafe { &mut *(0xb8000 as *mut Buffer) },
+  })
+}
 
 // Colors representation 
 // C-ike enum 
