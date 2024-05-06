@@ -18,8 +18,13 @@ mod vga_buffer;
 #[no_mangle] 
 pub extern "C" fn _start() -> ! {
     use core::fmt::Write;
+
+    println!(" Hello World");
+
     vga_buffer::WRITER.lock().write_str("Hello again").unwrap();
+
     write!(vga_buffer::WRITER.lock(), ", some numbers: {} {}", 42, 1.337).unwrap();
+    
 
     loop {}
 }
