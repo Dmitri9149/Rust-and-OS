@@ -25,13 +25,16 @@ pub extern "C" fn _start() -> ! {
 
     println!(" Hello World");
 
+//    panic!("Some panic message");   //   can panic with 'panic' fn 
+
     loop {}
 }
 
 // the function which is called on panic
 #[panic_handler]
  
-fn panic(_info:&PanicInfo) -> !{
+fn panic(info:&PanicInfo) -> !{
+    println!("{}", info);
     loop {}
 }
 
