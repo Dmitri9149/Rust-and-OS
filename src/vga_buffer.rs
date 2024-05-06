@@ -1,3 +1,4 @@
+use volatile::Volatile;
 // To print a character to the screen in VGA text mode, 
 // one has to write it to the text buffer of the VGA hardware. 
 // The VGA text buffer is a two-dimensional array with typically 25 rows 
@@ -53,7 +54,7 @@ const BUFFER_WIDTH: usize = 80;
 
 #[repr(transparent)]
 struct Buffer {
-  chars: [[ScreenChar; BUFFER_WIDTH]; BUFFER_HEIGHT],
+  chars: [[Volatile<ScreenChar>; BUFFER_WIDTH]; BUFFER_HEIGHT],
 }
 
 //To actually write to screen, we now create a writer type
@@ -80,10 +81,10 @@ impl Writer {
         let col = self.column_position;
 
         let color_code = self.color_code;
-        self.buffer.chars[row][col] = ScreenChar {
+        self.buffer.chars[row][col].write(ScreenChar {
           ascii_character: byte,
           color_code,
-        };
+        });
         self.column_position+=1;
       }
     }
