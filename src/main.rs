@@ -9,7 +9,7 @@ use core::panic::PanicInfo;
 
 mod vga_buffer;
 
-static HELLO: &[u8] = b"Hello World"; // the VGA buffer is located at address 0xb8000
+// static HELLO: &[u8] = b"Hello World"; // the VGA buffer is located at address 0xb8000
 
 // compile should output function with name 'start', do not mangle 
 // use C calling convention 'extern "C"'
@@ -27,7 +27,7 @@ pub extern "C" fn _start() -> ! {
     }
 */
     vga_buffer::print_something();
-    
+
     loop {}
 }
 
